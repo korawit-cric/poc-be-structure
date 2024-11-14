@@ -1,0 +1,10 @@
+{
+  "service": ["post-sale-response-time", "service-request-simplicity"],
+  "execution": [
+    "staff-courtersy",
+    "clear-advice",
+    "pre-installation-communication"
+  ],
+  "satisfaction": ["recommendation-likelihood"],
+  "comment": "comment"
+}

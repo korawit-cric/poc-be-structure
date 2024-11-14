@@ -1,8 +1,8 @@
 import { Express } from "express";
-import mockCustomerRoutes from "./mockCustomer.routes";
+import userRoute from "./user.route";
 
 const initializeRouter = (app: Express) => {
-  app.use(mockCustomerRoutes);
+  app.use(userRoute);
 };
 
 export default initializeRouter;

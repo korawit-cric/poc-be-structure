@@ -9,8 +9,9 @@ import { errorHandler, errorLogger } from "@/middlewares/errorHandler";
 import { sanitizeRequestBody } from "@/middlewares/requestSanitizer";
 import { initializeLogger, logger } from "@/middlewares/logger";
 import initializeRouter from "@/routes";
+import { initializeDB } from "@/db";
 
-const initializeServer = () => {
+const initializeServer = async () => {
   const app = express();
   // cors() is a middleware function that enables CORS (Cross-Origin Resource Sharing)
   // requests to the Express.js server.
@@ -43,9 +44,9 @@ const initializeServer = () => {
   // app.use(cookieParser(process.env.COOKIE_SECRET)); // COOKIE_SECRET cana be defined in the .env file
   app.use(cookieParser());
 
-
   // ----- Modules Initializer -----
   initializeLogger(app);
+  await initializeDB(app);
 
   // ----- Request Parsing and Sanitization -----
   // Body parser parses the request body and populates req.body with the parsed data.
@@ -56,11 +57,11 @@ const initializeServer = () => {
   app.use(bodyParser.urlencoded({ extended: true }));
 
   // ----- Routers -----
-    initializeRouter(app);
+  initializeRouter(app);
   //   initializeV1Router(app);
 
   // ----- Health Check and Error Handling ------
-  intializeReportDirectory();
+  initializeReportDirectory();
 
   app.use(healthRouter);
   app.use(errorHandler);
@@ -72,7 +73,7 @@ const initializeServer = () => {
   });
 };
 
-const intializeReportDirectory = () => {
+const initializeReportDirectory = () => {
   const path = "temp/reports";
   fs.mkdirSync(path, { recursive: true });
 };
